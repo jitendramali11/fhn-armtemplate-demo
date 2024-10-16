@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "keyVaultName": {
+      "value": "testjitu"
+    },
+    "skuName": {
+      "value": "Premium"
+    },
+    "objectId": {
+      "value": "dcbb5643-6e56-425b-a8e7-5fb36494a925"
+    }
+  }
+}

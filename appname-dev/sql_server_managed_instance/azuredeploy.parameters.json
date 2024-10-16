@@ -1,0 +1,23 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "managedInstanceName": {
+            "value": "lrsb-librios-sql-mi-demo"
+        },
+        "administratorLogin": {
+            "value": "libriosqlmiadminuser"
+        },
+        "administratorLoginPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/7b9e226e-3ddd-4ac1-88a6-3bfe19a32820/resourceGroups/lrsb-librios-demo-rg/providers/Microsoft.KeyVault/vaults/lrsb-librios-vault-demo"
+                },
+                "secretName": "sqlmidemopassword"
+            }
+        },
+        "subnetName":{
+            "value": "lr_Z2IE1_internal_net_sub_Librios_db"
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlservername": {
+            "value": "dev-fhn-sqlserver"
+        },
+        "sqlserveradminlogin": {
+            "value": "dev-fhn-db-dbuser"
+        },
+        "sqlserveradminloginpassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/7b9e226e-3ddd-4ac1-88a6-3bfe19a32820/resourceGroups/lr-key-vaults-rg/providers/Microsoft.KeyVault/vaults/lr-digiplatform-keyvault"
+                },
+                "secretName": "lrsb-kvs-db-produser"
+            }
+        },
+        "sqldatabasename": {
+            "value": "fhn-sqldb"
+        },
+        "db_instances": {
+            "value": [
+                "dev-fhn-sqldb"
+            ]
+        },
+        "environment": {
+            "value": "dev"
+        },
+        "costcenter": {
+            "value": "fhn"
+        },
+        "owner": {
+            "value": "fhn"
+        },
+        "maxsizeinbytes": {
+            "value": "268435456000"
+        },
+        "sqldatabaseedition": {
+            "value": "Standard"
+        },
+        "sqldatabaserequestedserviceobjectiveName": {
+            "value": "S0"
+        },
+        "storageAccountName": {
+            "value": "devfhnstorage"
+        },
+        "storageAccountResourceGroupName": {
+            "value": "dev-fhn-rg"
+        },
+        "accesskey": {
+            "value": "XaKSY/N1Dxv1GEwtcDYLzZFQr4mA9Y8h4glYzX9bfMC2fS9W4byBJEiasJi14CK27m7aB8zSy31obrBjMZ18hw=="
+        }
+    }
+}
