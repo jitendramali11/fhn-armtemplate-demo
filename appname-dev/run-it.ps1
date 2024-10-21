@@ -139,12 +139,12 @@ if ($ValidateOnly) {
             -Force -Verbose
 
 
-        Write-Output 'Start the 1st deployment to create sql server managed instance'
-        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-            -ResourceGroupName $resourcegroup `
-            -TemplateFile $lrTemplatefile_sql_server_managed_instance `
-            -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance `
-            -Force -Verbose 
+       # Write-Output 'Start the 1st deployment to create sql server managed instance'
+       # New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+       #     -ResourceGroupName $resourcegroup `
+       #     -TemplateFile $lrTemplatefile_sql_server_managed_instance `
+       #     -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance `
+       #     -Force -Verbose 
 
         Write-Output 'Start the 1st deployment to create webapps'
         New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
