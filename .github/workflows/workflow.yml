@@ -21,11 +21,7 @@ jobs:
       uses: actions/checkout@v2
         
     - name: Run Azure PowerShell script DeployARMtoAzure.ps1
-      uses: azure/powershell@v1
+      uses: azure/powershell@v2
       with:
-        inlineScript: |
-          #Set-AzContext -Subscription '6bb8f7ca-b738-4cbf-8234-bc849a0d3a89';
-          $command = "${{github.workspace}}/appname-dev/run-it.ps1";
-          Invoke-Expression $command;
-        azPSVersion: '4.1.0'
-        #AzPS 4.1.0 is needed to set Tags on the Deployments; AzPS 4.1.0 needs Ubuntu-20.04
+        inlineScript: ./appname-dev/run-it.ps1
+        azPSVersion: "latest"
