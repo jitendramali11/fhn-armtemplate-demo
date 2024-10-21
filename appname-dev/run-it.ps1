@@ -28,7 +28,7 @@ param(
 
     # The name of file for ARM template for sql server deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_sqlserver = "..\arm-templates\sql_server\azuredeploy.json",
+    [string]$lrTemplatefile_sqlserver = "..\arm-templates\SQL_Server\azuredeploy.json",
     # The name of file for ARM template parameter for sql server deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_sqlserver = "sql_server\azuredeploy.parameters.json",
@@ -36,7 +36,7 @@ param(
 
     # The name of file for ARM template for sql server managed instance deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_sql_server_managed_instance = "..\arm-templates\sql_server_managed_instance\azuredeploy.json",
+    [string]$lrTemplatefile_sql_server_managed_instance = "..\arm-templates\SQL_Server_Managed_Instance\azuredeploy.json",
     # The name of file for ARM template parameter for sql server manged instance deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_sql_server_managed_instance = "sql_server_managed_instance\azuredeploy.parameters.json",
