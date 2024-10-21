@@ -25,7 +25,7 @@ jobs:
       with:
         inlineScript: |
           #Set-AzContext -Subscription '6bb8f7ca-b738-4cbf-8234-bc849a0d3a89';
-          $command = "./appname-dev/run-it.ps1";
+          $command = "${{github.workspace}}/appname-dev/run-it.ps1";
           Invoke-Expression $command;
         azPSVersion: '4.1.0'
         #AzPS 4.1.0 is needed to set Tags on the Deployments; AzPS 4.1.0 needs Ubuntu-20.04
