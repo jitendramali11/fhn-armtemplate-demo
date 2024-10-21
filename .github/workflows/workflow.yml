@@ -24,7 +24,7 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Set-AzContext -Subscription '6bb8f7ca-b738-4cbf-8234-bc849a0d3a89';
+          #Set-AzContext -Subscription '6bb8f7ca-b738-4cbf-8234-bc849a0d3a89';
           $command = "./appname-dev/run-it.ps1";
           Invoke-Expression $command;
         azPSVersion: '4.1.0'
