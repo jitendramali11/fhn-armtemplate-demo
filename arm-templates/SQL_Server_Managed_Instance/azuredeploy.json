@@ -73,7 +73,7 @@
         },
         "licenseType": {
             "type": "string",
-            "defaultValue": "LicenseIncluded",
+            "defaultValue": "BasePrice",
             "allowedValues": [
                 "BasePrice",
                 "LicenseIncluded"
