@@ -8,41 +8,47 @@ param(
     [string]$resourcegroup = "dev-fhn-sandpit-rg",
     # The name of sql server deployment
     [Parameter(Mandatory = $false)]
-    [string]$sqldeploymentname = "deployment",
+    [string]$deploymentname = "new-deployment",
     
-    # The name of file for ARM template for sql server deployment
+    # The name of file for ARM template for keyvault deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_keyvault = "..\arm_templates\key_vault\azuredeploy.json",
-    # The name of file for ARM template parameter for sql server deployment
+    [string]$lrTemplatefile_keyvault = "..\arm-templates\key_vault\azuredeploy.json",
+    # The name of file for ARM template parameter for keyvault deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_keyvault = "key_vault\azuredeploy.parameters.json",
 
 
-    # The name of file for ARM template for sql server deployment
+    # The name of file for ARM template for storage account deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_storage_a_c = "..\arm_templates\storage_a_c\azuredeploy.json",
-    # The name of file for ARM template parameter for sql server deployment
+    [string]$lrTemplatefile_storage_a_c = "..\arm-templates\storage_a_c\azuredeploy.json",
+    # The name of file for ARM template parameter for storage account deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_storage_a_c = "storage_a_c\azuredeploy.parameters.json",
 
 
     # The name of file for ARM template for sql server deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_sqlserver = "..\arm_templates\sql_server\azuredeploy.json",
+    [string]$lrTemplatefile_sqlserver = "..\arm-templates\sql_server\azuredeploy.json",
     # The name of file for ARM template parameter for sql server deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_sqlserver = "sql_server\azuredeploy.parameters.json",
 
 
-    # The name of file for ARM template for sql server deployment
+    # The name of file for ARM template for sql server managed instance deployment
     [Parameter(Mandatory = $false)]
-    [string]$lrTemplatefile_sql_server_managed_instance = "..\arm_templates\sql_server_managed_instance\azuredeploy.json",
-    # The name of file for ARM template parameter for sql server deployment
+    [string]$lrTemplatefile_sql_server_managed_instance = "..\arm-templates\sql_server_managed_instance\azuredeploy.json",
+    # The name of file for ARM template parameter for sql server manged instance deployment
     [Parameter(Mandatory = $false)]
     [string]$lrTemplateparameterfile_sql_server_managed_instance = "sql_server_managed_instance\azuredeploy.parameters.json",
 
+    # The name of file for ARM template for webapp deployment
+    [Parameter(Mandatory = $false)]
+    [string]$lrTemplatefile_webapps = "..\arm-templates\webapps\azuredeploy.json",
+    # The name of file for ARM template parameter for webapp deployment
+    [Parameter(Mandatory = $false)]
+    [string]$lrTemplateparameterfile_webapps = "webapps\azuredeploy.parameters.json",
+
    
-    
     # The true/false value for validate the templates
     [Parameter(Mandatory = $false)]
     [switch] $ValidateOnly
@@ -61,6 +67,8 @@ $lrTemplateparameterfile_sqlserver = [System.IO.Path]::GetFullPath([System.IO.Pa
 $lrTemplatefile_sql_server_managed_instance = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $lrTemplatefile_sql_server_managed_instance))
 $lrTemplateparameterfile_sql_server_managed_instance = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $lrTemplateparameterfile_sql_server_managed_instance))
 
+$lrTemplatefile_webapps = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $lrTemplatefile_webapps))
+$lrTemplateparameterfile_webapps = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $lrTemplateparameterfile_webapps))
 
 try {
     [Microsoft.Azure.Common.Authentication.AzureSession]::ClientFactory.AddUserAgent("VSAzureTools-$UI$($host.name)".replace(' ', '_'), '3.0.0')
@@ -90,49 +98,60 @@ if ($ValidateOnly) {
 
     $ErrorMessages = Format-ValidationOutput (Test-AzResourceGroupDeployment -ResourceGroupName $resourcegroup `
             -TemplateFile $lrTemplatefile_sql_server_managed_instance `
-            -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance )
+            -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance)
 
-    if ($ErrorMessages) {
-        Write-Output '', 'Validation returned the following errors:', @($ErrorMessages), '', 'Template is invalid.'
+    $ErrorMessages = Format-ValidationOutput (Test-AzResourceGroupDeployment -ResourceGroupName $resourcegroup `
+                -TemplateFile $lrTemplatefile_webapps `
+                -TemplateParameterFile $lrTemplateparameterfile_webapps )
+
+        if ($ErrorMessages) {
+            Write-Output '', 'Validation returned the following errors:', @($ErrorMessages), '', 'Template is invalid.'
+        }
+        else {
+            Write-Output '', 'Template is valid.'
+        }
     }
     else {
-        Write-Output '', 'Template is valid.'
-    }
-}
-else {
 
 
 
-    Write-Output 'Start the 1st deployment to create sql server and database instances'
-    New-AzResourceGroupDeployment -Name ($sqldeploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-        -ResourceGroupName $resourcegroup `
-        -TemplateFile $lrTemplatefile_keyvault `
-        -TemplateParameterFile $lrTemplateparameterfile_keyvault `
-        -Force -Verbose
+        Write-Output 'Start the 1st deployment to create keyvault'
+        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+            -ResourceGroupName $resourcegroup `
+            -TemplateFile $lrTemplatefile_keyvault `
+            -TemplateParameterFile $lrTemplateparameterfile_keyvault `
+            -Force -Verbose
 
     
-    Write-Output 'Start the 1st deployment to create sql server and database instances'
-    New-AzResourceGroupDeployment -Name ($sqldeploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-        -ResourceGroupName $resourcegroup `
-        -TemplateFile $lrTemplatefile_storage_a_c `
-        -TemplateParameterFile $lrTemplateparameterfile_storage_a_c `
-        -Force -Verbose
+        Write-Output 'Start the 1st deployment to create storage account'
+        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+            -ResourceGroupName $resourcegroup `
+            -TemplateFile $lrTemplatefile_storage_a_c `
+            -TemplateParameterFile $lrTemplateparameterfile_storage_a_c `
+            -Force -Verbose
 
 
-    Write-Output 'Start the 1st deployment to create sql server and database instances'
-    New-AzResourceGroupDeployment -Name ($sqldeploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-        -ResourceGroupName $resourcegroup `
-        -TemplateFile $lrTemplatefile_sqlserver `
-        -TemplateParameterFile $lrTemplateparameterfile_sqlserver `
-        -Force -Verbose
+        Write-Output 'Start the 1st deployment to create sql server and database instances'
+        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+            -ResourceGroupName $resourcegroup `
+            -TemplateFile $lrTemplatefile_sqlserver `
+            -TemplateParameterFile $lrTemplateparameterfile_sqlserver `
+            -Force -Verbose
 
 
-    Write-Output 'Start the 1st deployment to create sql server and database instances'
-    New-AzResourceGroupDeployment -Name ($sqldeploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-        -ResourceGroupName $resourcegroup `
-        -TemplateFile $lrTemplatefile_sql_server_managed_instance `
-        -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance `
-        -Force -Verbose
+        Write-Output 'Start the 1st deployment to create sql server managed instance'
+        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+            -ResourceGroupName $resourcegroup `
+            -TemplateFile $lrTemplatefile_sql_server_managed_instance `
+            -TemplateParameterFile $lrTemplateparameterfile_sql_server_managed_instance `
+            -Force -Verbose 
+
+        Write-Output 'Start the 1st deployment to create webapps'
+        New-AzResourceGroupDeployment -Name ($deploymentname + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+            -ResourceGroupName $resourcegroup `
+            -TemplateFile $lrTemplatefile_webapps `
+            -TemplateParameterFile $lrTemplateparameterfile_webapps `
+            -Force -Verbose 
 
 
-}
+    }

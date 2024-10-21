@@ -9,12 +9,7 @@
             "value": "dev-fhn-db-dbuser"
         },
         "sqlserveradminloginpassword": {
-            "reference": {
-                "keyVault": {
-                    "id": "/subscriptions/7b9e226e-3ddd-4ac1-88a6-3bfe19a32820/resourceGroups/lr-key-vaults-rg/providers/Microsoft.KeyVault/vaults/lr-digiplatform-keyvault"
-                },
-                "secretName": "lrsb-kvs-db-produser"
-            }
+            "value": "test@123"
         },
         "sqldatabasename": {
             "value": "fhn-sqldb"
@@ -43,10 +38,10 @@
             "value": "S0"
         },
         "storageAccountName": {
-            "value": "devfhnstorage"
+            "value": "devfhnstr"
         },
         "storageAccountResourceGroupName": {
-            "value": "dev-fhn-rg"
+            "value": "dev-fhn-sandpit-rg"
         },
         "accesskey": {
             "value": "XaKSY/N1Dxv1GEwtcDYLzZFQr4mA9Y8h4glYzX9bfMC2fS9W4byBJEiasJi14CK27m7aB8zSy31obrBjMZ18hw=="

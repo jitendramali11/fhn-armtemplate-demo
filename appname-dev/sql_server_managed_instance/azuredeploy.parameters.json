@@ -9,12 +9,7 @@
             "value": "libriosqlmiadminuser"
         },
         "administratorLoginPassword": {
-            "reference": {
-                "keyVault": {
-                    "id": "/subscriptions/7b9e226e-3ddd-4ac1-88a6-3bfe19a32820/resourceGroups/lrsb-librios-demo-rg/providers/Microsoft.KeyVault/vaults/lrsb-librios-vault-demo"
-                },
-                "secretName": "sqlmidemopassword"
-            }
+           "value": "test@123"
         },
         "subnetName":{
             "value": "lr_Z2IE1_internal_net_sub_Librios_db"

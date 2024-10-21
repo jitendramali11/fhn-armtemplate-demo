@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appservicename": {
+            "value": "dev-fhn-app-serviceplan"
+        },
+        "webappnames": {
+            "value": ["dev-fhn-apiapp", "dev-fhn-webapp"]
+        },
+        "environment": {
+            "value": "dev"
+        },
+        "costcenter": {
+            "value": "fhn"
+        },
+        "owner": {
+            "value": "fhn"
+        },
+        "appinsight": {
+            "value": "no"
+        },
+        "workersize": {
+            "value": "0"
+        },
+        "webappsku": {
+            "value": "Standard"
+
+        }
+    }
+}
