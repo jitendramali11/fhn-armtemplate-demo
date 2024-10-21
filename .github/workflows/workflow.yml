@@ -3,6 +3,7 @@ name: FHN Infra Deployment - ARM Template
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
 
