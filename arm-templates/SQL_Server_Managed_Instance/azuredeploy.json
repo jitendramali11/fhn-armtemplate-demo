@@ -85,8 +85,7 @@
     },
     "variables": {
 
-        //"vnetId": "/subscriptions/7b9e226e-3ddd-4ac1-88a6-3bfe19a32820/resourceGroups/lr_internal_network/providers/Microsoft.Network/virtualNetworks/lr_internal_net_vnet",
-        //"subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+       
     },
     "resources": [
         {
@@ -103,7 +102,6 @@
             "properties": {
                 "administratorLogin": "[parameters('administratorLogin')]",
                 "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
-                //"subnetId": "[variables('subnetRef')]",
                 "storageSizeInGB": "[parameters('storageSizeInGB')]",
                 "vCores": "[parameters('vCores')]",
                 "licenseType": "[parameters('licenseType')]"
