@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "managedInstanceName": {
-            "value": "lrsb-librios-sql-mi-demo"
+            "value": "dev-fhn-sql-mi-demo"
         },
         "administratorLogin": {
-            "value": "libriosqlmiadminuser"
+            "value": "devfhnsqlmiadminuser"
         },
         "administratorLoginPassword": {
            "value": "test@123"
         },
         "subnetName":{
-            "value": "lr_Z2IE1_internal_net_sub_Librios_db"
+            "value": ""
         }
     }
 }
